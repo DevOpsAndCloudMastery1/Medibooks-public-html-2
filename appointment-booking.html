@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <link rel="stylesheet" href="styles/medibooks-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html">
+                <img src="images /MediBooks-Logo-1.png" alt="MediBooks Logo"> MediBooks
+            </a>
+            <!-- Right-aligned menu -->
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container content">
+        <h1 class="text-center mb-4">Book an Appointment</h1>
+        <div class="card" id="appointment-form">
+            <div class="card-body">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="appointment-date">Select Date:</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-time">Select Time:</label>
+                        <select id="appointment-time" required>
+                            <option value="">--Select Time--</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                        </select>
+                    </div>
+
+                    <!-- Doctor Information -->
+                    <div class="form-group">
+                        <label for="doctor-name">Doctor:</label>
+                        <input type="text" id="doctor-name" readonly>
+                        <!-- Doctor Details Link -->
+                        <a id="doctor-details-link" href="doctor-details.html" target="_blank">View Doctor Details</a>  
+                    </div>
+
+                    <!-- Patient Information -->
+                    <div class="form-group">
+                        <label for="patient-name">Name:</label>
+                        <input type="text" id="patient-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-email">Email:</label>
+                        <input type="email" id="patient-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-phone">Phone:</label>
+                        <input type="tel" id="patient-phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-notes">Additional Notes:</label>
+                        <textarea id="patient-notes" rows="3" placeholder="Optional notes..."></textarea>
+                    </div>
+                    <button type="button" onclick="submitAppointment()">Book Appointment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal (Hidden by Default) -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Appointment Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+                    <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+                    <p><strong>Doctor:</strong> <span id="confirm-doctor"></span></p>
+                    <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+                    <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                    <p><strong>Phone:</strong> <span id="confirm-phone"></span></p>
+                    <p><strong>Notes:</strong> <span id="confirm-notes"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="redirectToBookingPage()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to extract query parameters from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Populate doctor name and link based on the URL query parameter
+        window.onload = function () {
+            const doctorName = getQueryParam('doctor');
+            if (doctorName) {
+                // Populate the doctor name field if present in the query string
+                document.getElementById('doctor-name').value = doctorName;
+                
+                // Update the doctor details link with the passed doctor name
+                document.getElementById('doctor-details-link').href = `doctor-details.html?doctor=${encodeURIComponent(doctorName)}`;
+            }
+        };
+
+        // Function to submit the appointment and show the modal with confirmation
+        function submitAppointment() {
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const doctor = document.getElementById('doctor-name').value;
+            const name = document.getElementById('patient-name').value;
+            const email = document.getElementById('patient-email').value;
+            const phone = document.getElementById('patient-phone').value;
+            const notes = document.getElementById('patient-notes').value.trim();
+
+            // Basic validation check
+            if (!date || !time || !name || !email || !phone) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            // Hide the form and show the confirmation modal
+            document.getElementById
+                        // Hide the form and show the confirmation modal
+                        document.getElementById('appointment-form').style.display = 'none';
+
+// Populate the confirmation modal with the appointment details
+document.getElementById('confirm-date').innerText = date;
+document.getElementById('confirm-time').innerText = time;
+document.getElementById('confirm-doctor').innerText = doctor || "Not Selected";
+document.getElementById('confirm-name').innerText = name;
+document.getElementById('confirm-email').innerText = email;
+document.getElementById('confirm-phone').innerText = phone;
+document.getElementById('confirm-notes').innerText = notes || 'None';
+
+// Show the confirmation modal
+var myModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+myModal.show();
+}
+
+// Redirect to the booking page (optional: you can modify it to handle any extra logic)
+function redirectToBookingPage() {
+window.location.href = 'appointment-booking.html'; // URL for your booking page
+}
+</script>
+
+<!-- Include Bootstrap 5 JavaScript (Bootstrap Bundle includes both JS and Popper.js) -->
+<script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
