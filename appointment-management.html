@@ -345,20 +345,15 @@
     </footer>
 
     <script>
-        const activeBookings = [
-            { doctor: "Dr. John Smith", date: "2025-02-15", time: "10:00 AM", status: "Confirmed" },
-            { doctor: "Dr. Emma Davis", date: "2025-02-20", time: "2:00 PM", status: "Confirmed" }
-        ];
-
-        const pastBookings = [
-            { doctor: "Dr. Michael Brown", date: "2025-01-10", time: "11:00 AM", status: "Completed" }
-        ];
+        document.addEventListener("DOMContentLoaded", function () {
+            loadBookings();
+        });
 
         function loadBookings() {
+            const activeBookings = JSON.parse(localStorage.getItem("activeBookings")) || [];
             const activeList = document.getElementById("active-bookings");
             const pastList = document.getElementById("past-bookings");
 
-            // Clear lists before adding new items
             activeList.innerHTML = "";
             pastList.innerHTML = "";
 
@@ -369,33 +364,25 @@
                     <button onclick="cancel(${index})">Cancel</button>`;
                 activeList.appendChild(listItem);
             });
-
-            pastBookings.forEach(booking => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${booking.doctor} - ${booking.date} at ${booking.time} - ${booking.status}`;
-                pastList.appendChild(listItem);
-            });
-
-            // Save updated data
-            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
-            localStorage.setItem("pastBookings", JSON.stringify(pastBookings));
         }
 
         function reschedule(index) {
+            const activeBookings = JSON.parse(localStorage.getItem("activeBookings")) || [];
             const newDate = prompt("Enter a new date (YYYY-MM-DD):");
             if (newDate) {
                 activeBookings[index].date = newDate;
+                localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
                 alert("Appointment rescheduled successfully!");
-                document.getElementById("active-bookings").innerHTML = "";
                 loadBookings();
             }
         }
 
         function cancel(index) {
+            const activeBookings = JSON.parse(localStorage.getItem("activeBookings")) || [];
             if (confirm("Are you sure you want to cancel this appointment?")) {
                 activeBookings.splice(index, 1);
+                localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
                 alert("Appointment canceled successfully!");
-                document.getElementById("active-bookings").innerHTML = "";
                 loadBookings();
             }
         }
@@ -407,10 +394,11 @@
             const email = document.getElementById("email").value;
             const date = document.getElementById("appointment-date").value;
 
+            const activeBookings = JSON.parse(localStorage.getItem("activeBookings")) || [];
             activeBookings.push({ doctor, date, time: "TBD", status: "Confirmed" });
+            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
             alert("Appointment booked successfully!");
             document.getElementById("appointment-form").reset();
-            document.getElementById("active-bookings").innerHTML = "";
             loadBookings();
         });
 
@@ -418,8 +406,6 @@
             document.getElementById("doctor").value = doctorName;
             window.scrollTo({ top: document.getElementById("appointment-form").offsetTop, behavior: 'smooth' });
         }
-
-        loadBookings();
     </script>
 </body>
 

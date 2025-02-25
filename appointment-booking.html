@@ -140,6 +140,16 @@
                 alert('Please fill out all required fields.');
                 return;
             }
+            // Create an appointment object
+            let appointment = { date, time, doctor, name, email, phone, notes };
+
+            // Retrieve existing appointments or create an empty array
+            let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+    
+            // Add new appointment
+            appointments.push(appointment);
+            // Save updated appointments list
+            localStorage.setItem("appointments", JSON.stringify(appointments));
 
             // Hide the form and show the confirmation modal
             document.getElementById
