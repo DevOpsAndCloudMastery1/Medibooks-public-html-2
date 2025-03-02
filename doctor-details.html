@@ -3,197 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctors Search</title>
+    <title>Doctor Details</title>
     <link rel="stylesheet" href="styles/medibooks-styles.css">
+    <link href="js/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .doctor-profile {
+            text-align: center;
+            margin-top: 20px;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .doctor-info {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="navbar-brand">
-            <img src="images /MediBooks-Logo-1.png" alt="MediBooks Logo"> Medibooks
-        </a> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="home.html">
+                <img src="images/MediBooks-Logo-1.png" alt="MediBooks Logo" width="50" height="50" class="me-2"> 
+                <span>MediBooks</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <li class="nav-item px-2"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link active" href="doctor-search.html">Search Doctors</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="appointment-booking.html">Appointments</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="appointment-management.html">Manage Appointments</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="user-profile.html">Profile</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="doctor-reviews.html">Doctor Reviews</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="login.html">Sign Out</a></li>
+                </ul>
+            </div>
         </div>
-        <h1>Doctors Search</h1>
-        <nav>
-            <a href="home.html">Home</a>
-        </nav>
-    </header>
+    </nav>
 
-    <main>
-        <section>
-            <h2>List of Doctors</h2>
-            <table>
-                <tr>
-                    <td>
-                        <img src="images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
-                        <h3>Dr. John Smith</h3>
-                        <p>Specialization: Cardiologist</p>
-                        <button onclick="bookAppointment('Dr. John Smith')">Book Appointment</button>
-                        <a href="#doctor1">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20John%20Smith">Reviews</a>
-                    </td>
-                    <td>
-                        <img src="images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
-                        <h3>Dr. Emma Davis</h3>
-                        <p>Specialization: Neurologist</p>
-                        <button onclick="bookAppointment('Dr. Emma Davis')">Book Appointment</button>
-                        <a href="#doctor2">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Emma%20Davis">Reviews</a>
-                    </td>
-                    <td>
-                        <img src="images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
-                        <h3>Dr. Michael Brown</h3>
-                        <p>Specialization: Pediatrician</p>
-                        <button onclick="bookAppointment('Dr. Michael Brown')">Book Appointment</button>
-                        <a href="#doctor3">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Michael%20Brown">Reviews</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
-                        <h3>Dr. Olivia Wilson</h3>
-                        <p>Specialization: Orthopedic Surgeon</p>
-                        <button onclick="bookAppointment('Dr. Olivia Wilson')">Book Appointment</button>
-                        <a href="#doctor4">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Olivia%20Wilson">Reviews</a>
-                    </td>
-                    <td>
-                        <img src="images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
-                        <h3>Dr. Liam Johnson</h3>
-                        <p>Specialization: Dermatologist</p>
-                        <button onclick="bookAppointment('Dr. Liam Johnson')">Book Appointment</button>
-                        <a href="#doctor5">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Liam%20Johnson">Reviews</a>
-                    </td>
-                    <td>
-                        <img src="images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
-                        <h3>Dr. Sophia Martinez</h3>
-                        <p>Specialization: Gynecologist</p>
-                        <button onclick="bookAppointment('Dr. Sophia Martinez')">Book Appointment</button>
-                        <a href="#doctor6">More Details</a>
-                        <br>
-                        <a href="doctor-reviews.html?doctor=Dr.%20Sophia%20Martinez">Reviews</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <!-- Doctor Details -->
-        <section id="doctor1" class="doctor-details">
-            <h2>Dr. John Smith</h2>
-            <img src="images /doctor1.jpg" alt="Dr. John Smith" class="doctor-photo">
-            <p><strong>Specialization:</strong> Cardiologist</p>
-            <p><strong>Experience:</strong> 15 years</p>
-            <p><strong>Location:</strong> MediHealth Hospital, New York</p>
-            <p>Dr. John Smith is a renowned cardiologist specializing in advanced heart care and minimally invasive surgeries.</p>
-            <button onclick="fillAppointmentForm('Dr. John Smith')">Book Appointment</button>
-        </section>
-
-        <section id="doctor2" class="doctor-details">
-            <h2>Dr. Emma Davis</h2>
-            <img src="images /doctor2.jpg" alt="Dr. Emma Davis" class="doctor-photo">
-            <p><strong>Specialization:</strong> Neurologist</p>
-            <p><strong>Experience:</strong> 10 years</p>
-            <p><strong>Location:</strong> NeuroCare Clinic, Chicago</p>
-            <p>Dr. Emma Davis specializes in treating complex neurological disorders, including epilepsy, migraines, and neurodegenerative diseases.</p>
-            <button onclick="fillAppointmentForm('Dr. Emma Davis')">Book Appointment</button>
-        </section>
-
-        <section id="doctor3" class="doctor-details">
-            <h2>Dr. Michael Brown</h2>
-            <img src="images /doctor3.jpg" alt="Dr. Michael Brown" class="doctor-photo">
-            <p><strong>Specialization:</strong> Pediatrician</p>
-            <p><strong>Experience:</strong> 8 years</p>
-            <p><strong>Location:</strong> Happy Kids Pediatrics, Los Angeles</p>
-            <p>Dr. Michael Brown focuses on providing compassionate care for children of all ages, with expertise in child nutrition and immunizations.</p>
-            <button onclick="fillAppointmentForm('Dr. Michael Brown')">Book Appointment</button>
-        </section>
-
-        <section id="doctor4" class="doctor-details">
-            <h2>Dr. Olivia Wilson</h2>
-            <img src="images /doctor4.jpg" alt="Dr. Olivia Wilson" class="doctor-photo">
-            <p><strong>Specialization:</strong> Orthopedic Surgeon</p>
-            <p><strong>Experience:</strong> 12 years</p>
-            <p><strong>Location:</strong> Advanced Orthopedic Center, San Francisco</p>
-            <p>Dr. Olivia Wilson specializes in joint replacement and sports injuries.</p>
-            <button onclick="fillAppointmentForm('Dr. Olivia Wilson')">Book Appointment</button>
-        </section>
-
-        <section id="doctor5" class="doctor-details">
-            <h2>Dr. Liam Johnson</h2>
-            <img src="images /doctor5.jpg" alt="Dr. Liam Johnson" class="doctor-photo">
-            <p><strong>Specialization:</strong> Dermatologist</p>
-            <p><strong>Experience:</strong> 9 years</p>
-            <p><strong>Location:</strong> SkinCare Specialists, Miami</p>
-            <p>Dr. Liam Johnson treats acne, eczema, and skin cancer, ensuring healthy skin for his patients.</p>
-            <button onclick="fillAppointmentForm('Dr. Liam Johnson')">Book Appointment</button>
-        </section>
-
-        <section id="doctor6" class="doctor-details">
-            <h2>Dr. Sophia Martinez</h2>
-            <img src="images /doctor6.jpg" alt="Dr. Sophia Martinez" class="doctor-photo">
-            <p><strong>Specialization:</strong> Gynecologist</p>
-            <p><strong>Experience:</strong> 14 years</p>
-            <p><strong>Location:</strong> Women’s Wellness Center, Houston</p>
-            <p>Dr. Sophia Martinez specializes in women's health, including prenatal care and fertility treatments.</p>
-            <button onclick="fillAppointmentForm('Dr. Sophia Martinez')">Book Appointment</button>
-        </section>
-
-        
-        <!-- Appointment Form -->
-        <section id="appointment-form">
-            <h2>Book an Appointment</h2>
-            <form>
-                <label for="doctor-name">Doctor</label>
-                <input type="text" id="doctor-name" name="doctor-name" readonly>
-                <label for="patient-name">Your Name</label>
-                <input type="text" id="patient-name" name="patient-name" placeholder="Enter your name" required>
-                <label for="email">Your Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                <label for="appointment-date">Appointment Date</label>
-                <input type="date" id="appointment-date" name="appointment-date" required>
-                <button type="submit">Submit</button>
-            </form>
-        </section>
-    </main>
+    <div class="container mt-4">
+        <h1 class="text-center">MediBooks - Doctor Details</h1>
+        <div class="doctor-profile">
+            <img id="doctor-img" src="" alt="Doctor Image">
+            <h2 id="doctor-name"></h2>
+            <p class="doctor-info"><strong>Specialization:</strong> <span id="doctor-specialization"></span></p>
+            <p class="doctor-info"><strong>Experience:</strong> <span id="doctor-experience"></span></p>
+            <p class="doctor-info"><strong>Location:</strong> <span id="doctor-location"></span></p>
+            <p id="doctor-description"></p>
+            <a href="#" class="btn btn-primary" id="book-appointment">Book Appointment</a>
+        </div>
+    </div>
 
     <footer>
-        <p>&copy; 2025 MediBooks</p>
+        <p class="text-center mt-4">&copy; 2025 MediBooks</p>
     </footer>
 
     <script>
-    // Redirect to appointment booking page with doctor's name as a query parameter
-    function bookAppointment(doctorName) {
-        window.location.href = `appointment-booking.html?doctor=${encodeURIComponent(doctorName)}`;
-    }
-
-    // Extract query parameter from URL to prefill the doctor's name in the form
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
-
-    // Automatically fill the doctor name in the form if available
-    document.addEventListener("DOMContentLoaded", function () {
-        const doctorName = getQueryParam('doctor');
-        const doctorSelect = document.getElementById('doctor');
-
-        if (doctorName && doctorSelect) {
-            for (let option of doctorSelect.options) {
-                if (option.value === doctorName) {
-                    doctorSelect.value = doctorName;
-                    break;
-                }
-            }
-        }
-    });
-</script>
-   
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('data/doctors.json')
+                .then(response => response.json())
+                .then(data => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const doctorId = urlParams.get("id");
+                    
+                    const doctorEntry = data.doctors.find(doc => doc.id === doctorId);
+                    if (doctorEntry) {
+                        document.getElementById("doctor-img").src = doctorEntry.img;
+                        document.getElementById("doctor-name").textContent = doctorEntry.name;
+                        document.getElementById("doctor-specialization").textContent = doctorEntry.specialization;
+                        document.getElementById("doctor-experience").textContent = doctorEntry.experience;
+                        document.getElementById("doctor-location").textContent = doctorEntry.location;
+                        document.getElementById("doctor-description").textContent = doctorEntry.description;
+                        document.getElementById("book-appointment").href = `appointment-booking.html?id=${doctorEntry.id}`;
+                    }
+                })
+                .catch(error => console.error("Error loading doctor data:", error));
+        });
+    </script>
 </body>
 </html>
