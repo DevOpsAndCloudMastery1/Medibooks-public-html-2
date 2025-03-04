@@ -32,6 +32,21 @@
     
     <div class="container content">
         <h1 class="text-center mb-4">Doctor Reviews</h1>
+
+        <!-- Select Doctor Dropdown -->
+        <div class="mb-4">
+            <label for="doctor-select">Select Doctor:</label>
+            <select id="doctor-select" class="form-select">
+                <option value="Dr. John Smith">Dr. John Smith</option>
+                <option value="Dr. Emma Davis">Dr. Emma Davis</option>
+                <option value="Dr. Michael Brown">Dr. Michael Brown</option>
+                <option value="Dr. Olivia Wilson">Dr. Olivia Wilson</option>
+                <option value="Dr. Liam Johnson">Dr. Liam Johnson</option>
+                <option value="Dr. Sophia Martinez">Dr. Sophia Martinez</option>
+            </select>
+            <button id="load-reviews" class="btn btn-primary mt-2">Load Reviews</button>
+        </div>
+
         <div class="card">
             <div class="card-body">
                 <h5 id="doctor-name" class="card-title">Reviews for </h5>
@@ -61,13 +76,21 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const doctorName = urlParams.get("doctor") || "Selected Doctor";
-            
-            document.getElementById("doctor-name").innerText = `Reviews for ${doctorName}`;
-            loadReviews(doctorName);
+            // Load reviews when the page is first loaded
+            const initialDoctor = document.getElementById("doctor-select").value;
+            document.getElementById("doctor-name").innerText = `Reviews for ${initialDoctor}`;
+            loadReviews(initialDoctor);
 
+            // Event listener to load reviews for the selected doctor
+            document.getElementById("load-reviews").addEventListener("click", function () {
+                const doctorName = document.getElementById("doctor-select").value;
+                document.getElementById("doctor-name").innerText = `Reviews for ${doctorName}`;
+                loadReviews(doctorName);
+            });
+
+            // Event listener for submitting a review
             document.getElementById("submit-review").addEventListener("click", function () {
+                const doctorName = document.getElementById("doctor-select").value;
                 submitReview(doctorName);
             });
         });
