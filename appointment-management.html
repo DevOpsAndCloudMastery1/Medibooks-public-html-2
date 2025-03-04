@@ -218,11 +218,24 @@
 
         function loadBookings() {
             const activeBookings = JSON.parse(localStorage.getItem("activeBookings")) || [];
+            const pastBookings = JSON.parse(localStorage.getItem("pastBookings")) || [];
             const activeList = document.getElementById("active-bookings");
             const pastList = document.getElementById("past-bookings");
 
             activeList.innerHTML = "";
             pastList.innerHTML = "";
+
+            const currentDate = new Date().toISOString().split("T")[0];
+
+            activeBookings.forEach((booking, index) => {
+                if (booking.date < currentDate) {
+                    pastBookings.push(booking);
+                    activeBookings.splice(index, 1);
+                }
+            });
+
+            localStorage.setItem("activeBookings", JSON.stringify(activeBookings));
+            localStorage.setItem("pastBookings", JSON.stringify(pastBookings));
 
             activeBookings.forEach((booking, index) => {
                 const listItem = document.createElement("li");
@@ -231,6 +244,13 @@
                     <button class="btn btn-warning btn-sm ms-2" onclick="reschedule(${index})">Reschedule</button>
                     <button class="btn btn-danger btn-sm ms-2" onclick="cancel(${index})">Cancel</button>`;
                 activeList.appendChild(listItem);
+            });
+
+            pastBookings.forEach((booking) => {
+                const listItem = document.createElement("li");
+                listItem.classList.add("list-group-item");
+                listItem.innerHTML = `${booking.doctor} - ${booking.date} - ${booking.status}`;
+                pastList.appendChild(listItem);
             });
         }
 
